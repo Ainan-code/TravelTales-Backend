@@ -1,43 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const user_controller = require('../controllers/userController');
 
 
 
-// -----------------------------Create a new TODO item-----------------------------
-router.get('/', async (req, res) => {
-    try {
-     
-      
-     console.log('homepage');
-      res.status(201).json("Hello");
-    } catch (error) {
-      console.error('Error creating TODO item:', error); // Log the error
-    }
-   });
+ // get the homepage
+router.get('/', user_controller.user_homepage);
 
 
-   router.get('/register', async (req, res) => {
-    try {
-     
-      
-     console.log('Register page');
-      res.status(201).json(" register here");
-    } catch (error) {
-      console.error('Error creating TODO item:', error); // Log the error
-    }
-   });
+// get the register api
+ router.get('/register', user_controller.user_register_get);
 
-   router.post('/register', async (req, res) => {
-    try {
-     
-      
-     console.log('Register page');
-      res.status(201).json(" register here");
-    } catch (error) {
-      console.error('Error creating TODO item:', error); // Log the error
-    }
-   });
+ // register the user 
 
-
+ router.post('/register', user_controller.post);                           
+ 
+ 
 
    module.exports = router;
