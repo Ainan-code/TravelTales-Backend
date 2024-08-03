@@ -1,5 +1,5 @@
 
-// models/Todo.js
+// models/Users
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -18,4 +18,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Todo', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
