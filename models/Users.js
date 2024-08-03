@@ -1,29 +1,21 @@
-const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+// models/Todo.js
+const mongoose = require('mongoose');
 
-const UserSchema = new Schema({
-  username: { type: String,  minLength: 3,
-    unique:true, required: true,
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
   },
-  user_id: { type: Number, unique:true     },
- 
- password: { type: String,  minLength: 4, required: true},
- email: { type: String, minLength:4, required: true},
- 
- 
-});
-
-
-
-// Virtual for user's URL
-UserSchema.virtual("url").get(function () {
-  // We don't use an arrow function as we'll need the this object
-  return `/Users/${this._id}`;
-});
-
-
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
     
+  },
+});
 
-// Export model
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('Todo', UserSchema);

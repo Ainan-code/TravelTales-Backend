@@ -6,6 +6,7 @@ const logger = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const talesRouter = require('./routes/talesRouter');
 
 require('dotenv').config();
 
@@ -44,7 +45,7 @@ mongoose.connect(process.env.db_url, {
  
 
 
-const talesRouter = require('./routes/talesRouter');
+
 app.use('/', talesRouter);
 
 // catch 404 and forward to error handler
@@ -70,6 +71,6 @@ app.use(function(err, req, res, next) {
 
 
 
-app.listen(3000, () => console.log("app listening on port 3000!"));
+app.listen(5000, () => console.log("app listening on port 5000!"));
 
 module.exports = app;
