@@ -7,6 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/userRouter');
+const diaryRouter = require('./routes/diaryRoutes');
 
 require('dotenv').config();
 
@@ -46,7 +47,8 @@ mongoose.connect(process.env.db_url, {
 
 
 
-app.use('/', userRouter);
+app.use('/users', userRouter);
+app.use('/diaries', diaryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
