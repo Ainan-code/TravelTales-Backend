@@ -2,15 +2,26 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
+const { protect } = require("../middleware/authMiddleware");
+
 
 
 
  // Routes for users //
 
- // create a new user // 
+ // create a new user  endpoints// 
 
- router.post('/', userController.createUser);
-      
+ router.get('/register');
+
+ router.post('/register', userController.createUser);
+
+
+ // user login endpoints 
+
+
+router.get('/login');
+
+ router.post('/login', userController.loginUser); 
  
  // get all users 
 
@@ -33,6 +44,10 @@ const userController = require('../controllers/userController');
  // delete a user 
 
  router.delete('/:id', userController.deleteUser)
+
+ // test the auth middleware
+
+ 
 
 
  
