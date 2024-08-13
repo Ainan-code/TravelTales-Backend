@@ -37,13 +37,13 @@ router.get('/login');
 
  // update a user
 
- router.put('/:id', userController.updateUser)
+ router.put('/:id',protect, userController.updateUser)
   
 
 
  // delete a user 
 
- router.delete('/:id', userController.deleteUser)
+ router.delete('/:id',protect, userController.deleteUser)
 
  // test the auth middleware
 
