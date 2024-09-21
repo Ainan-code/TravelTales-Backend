@@ -8,6 +8,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/userRouter');
 const diaryRouter = require('./routes/diaryRoutes');
+const cors = require('cors');
+
+const corsOptions = {
+  origin: ['http://localhost:5173']
+};
+
+
+
 
 require('dotenv').config();
 
@@ -28,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json()); 
 
 app.use('/public', express.static('public'));
+app.use(cors(corsOptions));
 
 
 
