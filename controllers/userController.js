@@ -18,15 +18,15 @@ exports.getLoggedInUser = asyncHandler(async (req, res) => {
 });
 
 exports.createUser = asyncHandler( async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!username || !email || !password) {
+  if (!username  || !password) {
     res.status(400).send("Please add all fields");
     
   }
 
   // check if user exists
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ username });
   if (userExists) {
     res.status(400).send("User already exists");
     
@@ -41,7 +41,7 @@ exports.createUser = asyncHandler( async (req, res) => {
       const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
-        email: req.body.email
+       
       });
       const saver =   await newUser.save();
      
@@ -49,7 +49,7 @@ exports.createUser = asyncHandler( async (req, res) => {
         res.status(201).json({
           _id: newUser.id,
           username: newUser.username,
-          email: newUser.email,
+         
           token: generateToken(newUser._id),
         });
       } else {
