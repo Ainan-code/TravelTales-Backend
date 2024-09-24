@@ -61,21 +61,21 @@ exports.createUser = asyncHandler( async (req, res) => {
    // user login 
 
    exports.loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
   
-    if (!email || !password) {
+    if (!username || !password) {
       res.status(400).send("Please add all fields");
      
     }
   
     // Check for user email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
   
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
         _id: user.id,
         username: user.username,
-        email: user.email,
+        
         token: generateToken(user._id),
       });
     } else {

@@ -10,6 +10,20 @@ const userRouter = require('./routes/userRouter');
 const diaryRouter = require('./routes/diaryRoutes');
 const cors = require('cors');
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+
+// Use session middleware
+app.use(session({
+secret: 'your-secret-key',
+resave: false,
+saveUninitialized: false
+}));
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 const corsOptions = {
   origin: ['http://localhost:5173']
 };

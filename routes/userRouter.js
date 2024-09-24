@@ -21,7 +21,9 @@ const { protect } = require("../middleware/authMiddleware");
 
 router.get('/login');
 
- router.post('/login', userController.loginUser); 
+ router.post('/login',
+  passport.authenticate('local'
+ ), userController.loginUser); 
  
  // get all users 
 
