@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 };
 
 exports.getLoggedInUser = asyncHandler(async (req, res) => {
@@ -47,8 +47,8 @@ exports.createUser = asyncHandler( async (req, res) => {
      
       if (saver) {
         res.status(201).json({
-          _id: newUser.id,
-          username: newUser.username,
+         message: "user created succesfuly",
+         
          
           token: generateToken(newUser._id),
         });
@@ -74,7 +74,7 @@ exports.createUser = asyncHandler( async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
         _id: user.id,
-        username: user.username,
+       
         
         token: generateToken(user._id),
       });
@@ -99,7 +99,11 @@ exports.createUser = asyncHandler( async (req, res) => {
     try {
      const user = await User.findById(req.params.id);
      if (!user) return res.status(404).json({ error: 'user item not found' });
-     res.status(200).json(user);
+     res.status(200).json( { message: "Profile data fetched successfully",
+      user: {
+        id: user._id,
+        username: user.username,
+      },});
    } catch (error) {
      res.status(500).json({ error: 'Failed to fetch user item' });
    }

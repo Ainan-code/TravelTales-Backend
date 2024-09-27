@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
-const { protect } = require("../middleware/authMiddleware");
+const {verifyToken}  = require("../middleware/verifyToken");
 
 
 
@@ -21,9 +21,7 @@ const { protect } = require("../middleware/authMiddleware");
 
 router.get('/login');
 
- router.post('/login',
-  passport.authenticate('local'
- ), userController.loginUser); 
+ router.post('/login', userController.loginUser); 
  
  // get all users 
 
@@ -33,19 +31,19 @@ router.get('/login');
 
  // get a single user //
 
- router.get('/:id', userController.getsingleUser);
+ router.get('/:id', verifyToken ,  userController.getsingleUser);
   
 
 
  // update a user
 
- router.put('/:id',protect, userController.updateUser)
+ router.put('/:id', verifyToken , userController.updateUser);
   
 
 
  // delete a user 
 
- router.delete('/:id',protect, userController.deleteUser)
+ router.delete('/:id',verifyToken, userController.deleteUser)
 
  // test the auth middleware
 

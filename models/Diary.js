@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const User = require('../models/Users');
 
 const DiarySchema = new mongoose.Schema({
   title: {
@@ -23,7 +24,9 @@ const DiarySchema = new mongoose.Schema({
           type: [Number],
          
         }
-      }
+      },
+
+      user: {type: mongoose.Schema.Types.ObjectId, ref:"User"}
 });
 
 module.exports = mongoose.model('Diary', DiarySchema);
