@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
-const {verifyToken}  = require("../middleware/verifyToken");
+const {authenticateToken}  = require('../middleware/verifyToken');
 
 
 
@@ -31,19 +31,19 @@ router.get('/login');
 
  // get a single user //
 
- router.get('/:id', verifyToken ,  userController.getsingleUser);
+ router.get('/profile', authenticateToken ,  userController.getsingleUser);
   
 
 
  // update a user
 
- router.put('/:id', verifyToken , userController.updateUser);
+ router.put('/:id', authenticateToken , userController.updateUser);
   
 
 
  // delete a user 
 
- router.delete('/:id',verifyToken, userController.deleteUser)
+ router.delete('/:id',authenticateToken, userController.deleteUser)
 
  // test the auth middleware
 

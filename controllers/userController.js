@@ -4,9 +4,17 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-};
+function generateAccessToken(user) {
+  const payload = {
+    id: user._id,
+   
+  };
+  
+  const secret = process.env.JWT_SECRET;
+  const options = { expiresIn: '1h' };
+
+  return jwt.sign(payload, secret, options);
+}
 
 exports.getLoggedInUser = asyncHandler(async (req, res) => {
   const { _id, username, email } = await User.findById(req.user.id);
@@ -50,7 +58,7 @@ exports.createUser = asyncHandler( async (req, res) => {
          message: "user created succesfuly",
          
          
-          token: generateToken(newUser._id),
+          token: generateAccessToken(newUser._id),
         });
       } else {
       res.status(400).send("Invalid user data");
@@ -72,11 +80,12 @@ exports.createUser = asyncHandler( async (req, res) => {
     const user = await User.findOne({ username });
   
     if (user && (await bcrypt.compare(password, user.password))) {
+      const token = generateAccessToken(user._id);
       res.json({
-        _id: user.id,
+        id: user._id,
        
         
-        token: generateToken(user._id),
+        token: token,
       });
     } else {
       res.status(400).send("Invalid credentials");
@@ -97,7 +106,7 @@ exports.createUser = asyncHandler( async (req, res) => {
 
    exports.getsingleUser = asyncHandler(async (req, res) => {
     try {
-     const user = await User.findById(req.params.id);
+     const user = await User.findById(req.user.id);
      if (!user) return res.status(404).json({ error: 'user item not found' });
      res.status(200).json( { message: "Profile data fetched successfully",
       user: {
@@ -105,7 +114,7 @@ exports.createUser = asyncHandler( async (req, res) => {
         username: user.username,
       },});
    } catch (error) {
-     res.status(500).json({ error: 'Failed to fetch user item' });
+     res.status(500).json({ message: 'Failed to fetch user item' });
    }
    });
 

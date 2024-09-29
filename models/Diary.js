@@ -11,22 +11,13 @@ const DiarySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  img: {
-    type: Buffer,
-     },
-     location: {
-        type: {
-          type: String, 
-          enum: ['Point'], 
-          
-        },
-        coordinates: {
-          type: [Number],
-         
-        }
+ 
+  location: {
+    type: String,
+    required: true
       },
 
-      user: {type: mongoose.Schema.Types.ObjectId, ref:"User"}
+  user: {type: mongoose.Schema.Types.ObjectId, ref:"User"}
 });
 
 module.exports = mongoose.model('Diary', DiarySchema);

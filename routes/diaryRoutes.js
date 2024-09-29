@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const diaryController = require('../controllers/dairyController');
+const {authenticateToken}  = require('../middleware/verifyToken');
 
 
 
@@ -9,7 +10,7 @@ const diaryController = require('../controllers/dairyController');
 
  // create a new diary // 
 
- router.post('/diary', diaryController.createDiary);
+ router.post('/diary',authenticateToken, diaryController.createDiary);
       
  
  // get all users 
