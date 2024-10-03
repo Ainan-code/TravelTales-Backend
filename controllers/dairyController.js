@@ -10,7 +10,7 @@ exports.createDiary = asyncHandler( async (req, res) => {
       const newDiary = new Diary({
        title: req.body.title,
        content: req.body.content,
-       img: req.body.img,
+       author: req.body.author,
        location: req.body.location,
       });
       const saver =   await newDiary.save();
