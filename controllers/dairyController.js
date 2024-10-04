@@ -61,10 +61,10 @@ exports.createDiary = asyncHandler( async (req, res) => {
 
    exports.updateDiary = asyncHandler(async (req, res) => {
     try {
-     const { title, content, img, location } = req.body;
+     const { title, content, author, location } = req.body;
      const diary = await Diary.findByIdAndUpdate(
        req.params.id,
-       { title, content, img, location },
+       { title, content, author, location },
        { new: true }
      );
      if (!diary) return res.status(404).json({ error: 'diary item not found' });
