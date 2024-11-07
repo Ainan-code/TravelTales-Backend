@@ -17,8 +17,11 @@ const passport = require('passport');
 
 
 const corsOptions = {
-  origin: ['http://localhost:5173']
-};
+
+    origin:'*', 
+    credentials:true,           
+    optionSuccessStatus:200,
+ };
 
 
 const PORT = process.env.PORT || 5000
