@@ -11,25 +11,17 @@ const diaryRouter = require('./routes/diaryRoutes');
 const cors = require('cors');
 
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const session = require('express-session');
 
 
-// Use session middleware
-app.use(session({
-secret: 'your-secret-key',
-resave: false,
-saveUninitialized: false
-}));
-// Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
+
+
+
 const corsOptions = {
   origin: ['http://localhost:5173']
 };
 
 
-
+const PORT = process.env.PORT || 5000
 
 require('dotenv').config();
 
@@ -63,6 +55,9 @@ mongoose.connect(process.env.db_url, {
   }).catch(err => {
     console.error('Could not connect to Mongo database.', err);
   });
+
+
+  
   
 
 
@@ -96,7 +91,7 @@ app.use(function(err, req, res, next) {
 
 
 
-app.listen(5000, () => console.log("app listening on port 5000!"));
+app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
 
 
 module.exports = app;
